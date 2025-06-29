@@ -4,6 +4,7 @@ from stegano import encode_spread_spectrum, decode_spread_spectrum
 import cv2
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Maks 2MB
 UPLOAD_FOLDER = 'static/uploads'
 RESULT_FOLDER = 'static/results'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -23,6 +24,8 @@ def encode():
     encoded_image = encode_spread_spectrum(image_path, message)
     encoded_path = os.path.join(RESULT_FOLDER, 'encoded.png')
     cv2.imwrite(encoded_path, encoded_image)
+    
+    os.remove(image_path)
 
     return render_template('index.html', encoded_image=encoded_path)
 
@@ -38,6 +41,9 @@ def decode():
     stego.save(stego_path)
 
     message = decode_spread_spectrum(original_path, stego_path, length)
+    
+    os.remove(original_path)
+    os.remove(stego_path)
 
     return render_template('index.html', decoded_message=message)
 

@@ -12,6 +12,9 @@ def encode_spread_spectrum(image_path, message):
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     if image is None:
         raise ValueError("Image not found or unreadable")
+    
+    if image.shape[0] > 512 or image.shape[1] > 512:
+        image = cv2.resize(image, (512, 512))
 
     h, w = image.shape
     flat_image = image.flatten().astype(np.float32)
