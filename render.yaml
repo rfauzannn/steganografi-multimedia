@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: multimedia-app
-    env: python
-    buildCommand: ""
-    startCommand: "python app.py"
-    autoDeploy: true
