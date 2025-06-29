@@ -1,0 +1,13 @@
+__pycache__/
+.vscode/
+uploads/
+static/uploads/
+static/results/
+*.jpg
+*.JPG
+*.png
+*.PNG
+*.jpeg
+*.JPEG
+*.mp4
+*.mp3
